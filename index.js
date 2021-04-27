@@ -29,7 +29,6 @@ app.get("/", async (req, res) => {
   res.json(notes);
 });
 app.post("/add", async (req, res) => {
-  console.log(req.body);
   const note = new Note(req.body);
   await note.save().then((res) => {
     console.log(res, "done");
@@ -38,6 +37,6 @@ app.post("/add", async (req, res) => {
 });
 
 app.listen(3001, function () {
-  //在3000端口启动
+  //在3001端口启动
   console.log("Example app listening on port 3000");
 });
