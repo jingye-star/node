@@ -7,11 +7,11 @@ const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
-app.use(urlencodedParser);
+
 
 app.use(cors())
 app.use(express.static('build'))
-
+app.use(urlencodedParser);
 app.use(jsonParser);
 mongoose.connect(url, {
   useNewUrlParser: true,
@@ -28,10 +28,10 @@ const noteSchema = new mongoose.Schema({
   important: Boolean,
 });
 const Note = mongoose.model("Note", noteSchema);
-app.get("/", async (req, res) => {
-  const notes = await Note.find({})
-  res.json(notes);
-});
+// app.get("/", async (req, res) => {
+//   const notes = await Note.find({})
+//   res.json(notes);
+// });
 app.get("/v2", async (req, res) => {
   const notes = await Note.find({})
   res.json(notes);
