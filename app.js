@@ -1,18 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const url = `mongodb+srv://zhangjingye:NRpBtntU8j0gqLSf@cluster0.bn6hs.mongodb.net/cloud?retryWrites=true&w=majority`;
-const cors = require('cors')
-const port = 3001;
 const bodyParser = require("body-parser");
+const cors = require('cors')
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
-const app = express();
 
+const app = express();
+const port = 3001;
+const url = `mongodb+srv://zhangjingye:NRpBtntU8j0gqLSf@cluster0.bn6hs.mongodb.net/cloud?retryWrites=true&w=majority`;
 
 app.use(cors())
 app.use(express.static('build'))
+
+
 app.use(urlencodedParser);
 app.use(jsonParser);
+
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -27,6 +30,7 @@ const noteSchema = new mongoose.Schema({
   content: String,
   important: Boolean,
 });
+
 const Note = mongoose.model("Note", noteSchema);
 // app.get("/", async (req, res) => {
 //   const notes = await Note.find({})
@@ -44,10 +48,10 @@ app.post("/add", async (req, res) => {
   res.send("done");
 });
 
-
 // app.listen(3001, function () {
 //   //在3001端口启动
-//   console.log("Example app listening on port 3000");
+//   console.log("Example app listening on port 3001");
 // });
+
 
 module.exports = app
